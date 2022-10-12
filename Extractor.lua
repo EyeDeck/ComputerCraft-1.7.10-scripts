@@ -20,7 +20,7 @@ Next, attach a 2x2 of advanced monitors,
 either to the computer, or via network cable.
 
 Finally, to load, enter:
-  openp/github get EyeDeck/ComputerCraft-1.7.10-scripts/extractor.lua startup
+  openp/github get EyeDeck ComputerCraft-1.7.10-scripts master Extractor.lua startup
   startup
 --]]
 
@@ -87,7 +87,7 @@ local f = fs.open("buttonAPI","r")
 
 if f == nil then
   print("Attempting to fetch ButtonAPI...")
-  local bapi = http.get("https://raw.githubusercontent.com/EyeDeck/ComputerCraft-1.7.10-scripts/master/buttonAPI.lua")
+  local bapi = http.get("https://raw.githubusercontent.com/EyeDeck/ComputerCraft-1.7.10-scripts/master/ButtonAPI.lua")
   if (bapi) then
     f = fs.open("buttonAPI","w")
     f.write(bapi.readAll())
