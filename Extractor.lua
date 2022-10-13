@@ -245,7 +245,7 @@ function updateDisplay()
     writeCentered(term, cy, "-- Extracting --")
   elseif display_state == "jam" then
     term.setTextColor(colors.red)
-    writeCentered(term, cy, "-- Jammed! Check output -- ")
+    writeCentered(term, cy, "-- Jammed! Check machine -- ")
   elseif display_state == "idle" then
     term.setTextColor(colors.yellow)
     writeCentered(term, cy, "-- Idle --")
@@ -586,23 +586,23 @@ else
   print("AE not available.")
 end
 
-local limit_per_type = 256
-local ae_no_ore = 0
-local ae_remaining = 0
-local ae_name = "n/a"
+limit_per_type = 256
+ae_no_ore = 0
+ae_remaining = 0
+ae_name = "n/a"
 
 mon.setTextScale(0.5)
 mon.setBackgroundColor(colors.black)
 mon.setTextColor(colors.white)
 mon.clear()
-local mon_w, mon_h = mon.getSize()
+mon_w, mon_h = mon.getSize()
  
 coil.setSpeed(coil_speed)
 coil.setTorque(0)
 
-local is_on = readState("is_on")
-local auto_on = readState("auto_on")
-local do_ae = readState("do_ae")
+is_on = readState("is_on")
+auto_on = readState("auto_on")
+do_ae = readState("do_ae")
 
 buttonAPI.drawButton(mon,2,2,16,7,colors.black,is_on and colors.red or colors.lime,is_on and "Stop" or "Start","startstop")
 buttonAPI.drawButton(mon,20,2,16,7,colors.black,auto_on and colors.yellow or colors.blue,auto_on and "Automatic" or "Manual","manualauto")
@@ -611,13 +611,13 @@ buttonAPI.drawButton(mon,13,16,6,4,colors.black,colors.green,{"Skip","next"},"ae
 buttonAPI.drawButton(mon,2,16,12,4,colors.black,colors.white,"n/a","aetoggle")
 redrawAEButton()
 
-local jam_count = 0
-local jam_max_consecutive = 9
-local jam_latest = {}
-local jam_last = {}
-local jammed = false
+jam_count = 0
+jam_max_consecutive = 9
+jam_latest = {}
+jam_last = {}
+jammed = false
 
-local display_state = nil
+display_state = nil
 if notEmpty() ~= false then
   display_state = "ex"
 else
