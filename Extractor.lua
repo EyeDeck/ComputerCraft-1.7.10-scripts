@@ -77,7 +77,7 @@ o = {
   ["appliedenergistics2:tile.OreQuartz"]={0},
   ["libVulpes:libVulpesore0"]={0,4,5,8,9},
   ["Mekanism:OreBlock"]={0,1,2},
-  ["BiomesOPlenty:gemOre"]={2,4,12,14},
+  ["BiomesOPlenty:gemOre"]={0,2,4,12,14},
   ["ProjRed|Exploration:projectred.exploration.ore"]={0,1,2,3,4,5,6},
   ["Mimicry:Sparr_Mimichite Ore"]={0,1,2},
   ["ImmersiveEngineering:ore"]={0,1,2,3,4}
@@ -567,17 +567,6 @@ function pullEventOrTimeout(event, timeout)
     end
   end
 end
-
---[[
-function skipLoop()
-  while true do
-    event, key = os.pullEvent("key")
-      if key == keys.enter then
-        
-      end
-   end
-end
-]]--
 
 print("Checking for AE...")
 if tryConnectAE() then

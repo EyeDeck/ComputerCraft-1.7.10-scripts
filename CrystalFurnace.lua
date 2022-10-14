@@ -1,6 +1,19 @@
--- Location of furnace relative to interface
+--[[
+openp/github get EyeDeck ComputerCraft-1.7.10-scripts master CrystalFurnace.lua startup
+
+Primarily intended to automate feeding extractor products to the ChC Crystal Furnace,
+but also works on similar machines like a TE Redstone Furnace.
+
+Usage:
+Attach computer to AE interface (either directly adjacent, or via CC network cables).
+AE interface should be directly adjacent to furnace.
+Set ex_dir appropriately.
+Pressing 'w'/'b' toggle white/blacklist processing respectively.
+--]]
+
+-- Location of furnace relative to interface (default: furnace is on top of interface)
 ex_dir = "up"
--- limit of ores per type to do in a row (to keep your bulk ores from making your rare ores never get extracted)
+-- number of items per type to process in a row (to keep from spending too long on bulk items)
 limit_per_type = 256
  
 me = peripheral.find("tileinterface")
