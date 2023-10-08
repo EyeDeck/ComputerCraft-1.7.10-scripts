@@ -320,6 +320,7 @@ function exLoop()
       print("Beginning extraction...")
       os.queueEvent("wake_ae")
       
+      checkForJam()
       while is_on do
         if do_ae then
           extractFlakes()
@@ -334,6 +335,7 @@ function exLoop()
           
           for _,stage in pairs(stages) do
             sanityCheck()
+            checkForJam()
             cvt.setRatio(stage.ratio)
             coil.setTorque(stage.coil)
             sleep(stage.t)
@@ -342,6 +344,7 @@ function exLoop()
           if jammed == true then
             display_state = "jam"
             updateDisplay()
+            checkForJam()
           else
             display_state = "idle"
             updateDisplay()
@@ -426,17 +429,6 @@ function uiLoop()
     end
     updateDisplay()
   end  
-end
-
-function jamLoop()
-  while true do
-    if is_on then
-      checkForJam()
-      sleep(0.05)
-    else
-      os.pullEvent("main_start")
-    end
-  end
 end
 
 function checkForJam()
@@ -616,7 +608,7 @@ buttonAPI.drawButton(mon,2,16,12,4,colors.black,colors.white,"n/a","aetoggle")
 redrawAEButton()
 
 jam_count = 0
-jam_max_consecutive = 20
+jam_max_consecutive = 9
 jam_latest = {}
 jam_last = {}
 jammed = false
@@ -629,4 +621,4 @@ else
 end
 updateDisplay()
 
-parallel.waitForAll(uiLoop, peripheralLoop, peripheralDetachLoop, aeInterfaceLoop, exLoop, jamLoop)
+parallel.waitForAll(uiLoop, peripheralLoop, peripheralDetachLoop, aeInterfaceLoop, exLoop)
