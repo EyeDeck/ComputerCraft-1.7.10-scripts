@@ -367,17 +367,6 @@ function exLoop()
   end
 end
 
-function jamLoop()
-  while true do
-    if is_on then
-      checkForJam()
-      sleep(math.random(10))
-    else
-      os.pullEvent("main_start")
-    end
-  end
-end
-
 function uiLoop()
   while true do
     sanityCheck()
@@ -437,6 +426,17 @@ function uiLoop()
     end
     updateDisplay()
   end  
+end
+
+function jamLoop()
+  while true do
+    if is_on then
+      checkForJam()
+      sleep(0.05)
+    else
+      os.pullEvent("main_start")
+    end
+  end
 end
 
 function checkForJam()
@@ -612,7 +612,7 @@ buttonAPI.drawButton(mon,2,16,12,4,colors.black,colors.white,"n/a","aetoggle")
 redrawAEButton()
 
 jam_count = 0
-jam_max_consecutive = 9
+jam_max_consecutive = 40
 jam_latest = {}
 jam_last = {}
 jammed = false
