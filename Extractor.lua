@@ -320,7 +320,6 @@ function exLoop()
       print("Beginning extraction...")
       os.queueEvent("wake_ae")
       
-      checkForJam()
       while is_on do
         if do_ae then
           extractFlakes()
@@ -335,7 +334,6 @@ function exLoop()
           
           for _,stage in pairs(stages) do
             sanityCheck()
-            checkForJam()
             cvt.setRatio(stage.ratio)
             coil.setTorque(stage.coil)
             sleep(stage.t)
@@ -344,7 +342,6 @@ function exLoop()
           if jammed == true then
             display_state = "jam"
             updateDisplay()
-            checkForJam()
           else
             display_state = "idle"
             updateDisplay()
@@ -365,6 +362,17 @@ function exLoop()
       print("Ceasing extraction.")
  
     else -- is_on == false
+      os.pullEvent("main_start")
+    end
+  end
+end
+
+function jamLoop()
+  while true do
+    if is_on then
+      checkForJam()
+      sleep(math.random(10))
+    else
       os.pullEvent("main_start")
     end
   end
@@ -617,4 +625,4 @@ else
 end
 updateDisplay()
 
-parallel.waitForAll(uiLoop, peripheralLoop, peripheralDetachLoop, aeInterfaceLoop, exLoop)
+parallel.waitForAll(uiLoop, peripheralLoop, peripheralDetachLoop, aeInterfaceLoop, exLoop, jamLoop)
