@@ -440,7 +440,11 @@ function jamLoop()
 end
 
 function checkForJam()
-  jam_latest = ex.getAllStacks()
+  local stacks = ex.getAllStacks()
+  jam_latest = {}
+  for k,v in pairs(stacks) do
+    jam_latest[k] = ex.getStackInSlot(k)
+  end
   if jamInner() then
     jam_count = jam_count + 1
     if jam_count >= jam_max_consecutive then
@@ -612,7 +616,7 @@ buttonAPI.drawButton(mon,2,16,12,4,colors.black,colors.white,"n/a","aetoggle")
 redrawAEButton()
 
 jam_count = 0
-jam_max_consecutive = 40
+jam_max_consecutive = 20
 jam_latest = {}
 jam_last = {}
 jammed = false
