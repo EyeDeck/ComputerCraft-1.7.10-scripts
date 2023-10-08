@@ -485,12 +485,15 @@ function peripheralLoop()
       print("AE connected.")
     else
       peripherals = peripherals + 1
-      print("A critical peripheral has been detached! Missing: " .. -peripherals)
+      print("A critical peripheral has been reattached! Missing: " .. -peripherals)
+      if coil ~= nil then
+        coil.setSpeed(coil_speed)
+      end
     end
   end
 end
 
-function peripheralDeatchLoop()
+function peripheralDetachLoop()
   while true do
     local event = os.pullEvent("peripheral_detach")
     
@@ -499,7 +502,7 @@ function peripheralDeatchLoop()
       print("AE disconnected.")
     else
       peripherals = peripherals - 1
-      print("A critical peripheral has been reattached! Missing: " .. -peripherals)
+      print("A critical peripheral has been detached! Missing: " .. -peripherals)
     end
     --print(me)
   end
@@ -614,4 +617,4 @@ else
 end
 updateDisplay()
 
-parallel.waitForAll(uiLoop, peripheralLoop, peripheralDeatchLoop, aeInterfaceLoop, exLoop)
+parallel.waitForAll(uiLoop, peripheralLoop, peripheralDetachLoop, aeInterfaceLoop, exLoop)
