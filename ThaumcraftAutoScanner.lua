@@ -1,6 +1,34 @@
--- set this to the dir of the chest relative to the interface
-chest_dir = "north"
+-- set this to the dir of the inventory relative to the interface
+inv_dir = "north"
 scan_wait = 1.2
+
+--[[
+openp/github get EyeDeck ComputerCraft-1.7.10-scripts master ThaumcraftAutoScanner.lua startup
+
+Usage:
+- load into a computer attached to an ME interface
+- Place a SFM Rapid Item Valve adjacent to the interface
+- Configure inv_dir
+
+Before you use the learner routine, first combine Aqua+Terra,
+and Aer+Aqua in a research table. The learner routine will
+attempt to teach you every aspect using items already
+likely to be in your ME system.
+
+The scanner routine will instead go through every single
+item in your ME system. This may take quite a bit of time
+if there are thousands of unique items, around 10 minutes
+per full ME drive (640 types).
+
+Get your Thaumcraft scanner ready. Then, open the computer,
+and press 'l' or 's' to start a scan routine. Quickly exit,
+and then hold your scanner in front of the item valve output.
+
+In the computer, space/enter/pause will pause the program.
+Up/Down will skip forward or backwards in the item list.
+PgUp/PgDn will skip 64 forward or backwards.
+End will halt the program.
+--]]
 
 learners = {
   {['aspect']='lux', ['minecraft:torch']={0}},
@@ -13,7 +41,7 @@ learners = {
   {['aspect']='volatus', ['minecraft:feather']={0}},
   {['aspect']='bestia', ['minecraft:egg']={0}},
   {['aspect']='spiritus & vinculum', ['minecraft:soul_sand']={0},['minecraft:skull']={-1}},
-  {['aspect']='cognitio', ['minecraft:paper']={0}},
+  {['aspect']='cognitio', ['minecraft:book']={0}},
   {['aspect']='humanus&corpus', ['minecraft:rotten_flesh']={0}},
   {['aspect']='fames & messis', ['minecraft:wheat']={0},['minecraft:bread']={0},['minecraft:apple']={0},['minecraft:carrot']={0},['minecraft:potato']={0}},
   {['aspect']='instrumentum', ['minecraft:flint']={0}},
@@ -59,14 +87,14 @@ function keyAvailableItems(inv)
 end
 
 function moveForScanning(fingerprint)
-  pcall(me.exportItem, fingerprint, chest_dir, 1)
+  pcall(me.exportItem, fingerprint, inv_dir, 1)
   sleep(scan_wait)
   retrieveItems()
 end
 
 function retrieveItems()
   for i=1,4 do
-    pcall(me.pullItem, chest_dir, i, i)
+    pcall(me.pullItem, inv_dir, i, i)
   end
 end
 
@@ -203,11 +231,11 @@ end
 function offsetLoop()
   while true do
     local event, key = os.pullEvent('key')
-    if key == keys.enter or key == keys.pause then
+    if key == keys.enter or key == keys.pause or keys.space then
       paused = paused == false
       print(paused and 'Paused' or 'Unpaused')
       retrieveItems()
-    elseif key == keys['end'] then
+    elseif key == keys.end then
       print('Halting')
       retrieveItems()
       stop = true
