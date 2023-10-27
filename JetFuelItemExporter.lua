@@ -14,7 +14,7 @@ of each component in the Ender Chest.
 chest_dir = "up"
 
 items = {
-	['Coal Dust']       = {['RotaryCraft:rotarycraft_item_powders'] = 10, ['ThermalFoundation:material'] = 2},
+	['Coal Dust']       = {['RotaryCraft:rotarycraft_item_powders'] = 10},
 	['Netherrack Dust'] = {['RotaryCraft:rotarycraft_item_powders'] = 0},
 	['Tar Sand']        = {['RotaryCraft:rotarycraft_item_powders'] = 1},
 	['Blaze Powder']    = {['minecraft:blaze_powder'] = 0},
